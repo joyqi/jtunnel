@@ -59,16 +59,16 @@ server = Net.createServer {allowHalfOpen : yes, pauseOnConnect: yes}, (s) ->
 
     s.on 'error', (error) ->
         console.log "input error: #{error.message}"
-        s.destory() if s? and not s.destroyed
-        target.destory() if target? and not target.destroyed
+        s.destroy() if s? and not s.destroyed
+        target.destroy() if target? and not target.destroyed
     
     target.on 'close', ->
         console.log "ouput close"
 
     target.on 'error', (error) ->
         console.log "ouput error: #{error.message}"
-        s.destory() if s? and not s.destroyed
-        target.destory() if target? and not target.destroyed
+        s.destroy() if s? and not s.destroyed
+        target.destroy() if target? and not target.destroyed
 
 
 server.on 'error', (error) ->

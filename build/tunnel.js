@@ -41,10 +41,10 @@
     s.on('error', function(error) {
       console.log("input error: " + error.message);
       if ((s != null) && !s.destroyed) {
-        s.destory();
+        s.destroy();
       }
       if ((target != null) && !target.destroyed) {
-        return target.destory();
+        return target.destroy();
       }
     });
     target.on('close', function() {
@@ -53,10 +53,10 @@
     return target.on('error', function(error) {
       console.log("ouput error: " + error.message);
       if ((s != null) && !s.destroyed) {
-        s.destory();
+        s.destroy();
       }
       if ((target != null) && !target.destroyed) {
-        return target.destory();
+        return target.destroy();
       }
     });
   });
