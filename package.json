@@ -1,0 +1,28 @@
+{
+  "name": "jtunnel",
+  "version": "1.0.0",
+  "description": "socket tunnel",
+  "main": "build/tunnel.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joyqi/jtunnel.git"
+  },
+  "bin": {
+    "jtunnel": "./bin/jtunnel"
+  },
+  "keywords": [
+    "tunnel"
+  ],
+  "author": "joyqi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joyqi/jtunnel/issues"
+  },
+  "homepage": "https://github.com/joyqi/jtunnel#readme",
+  "dependencies": {
+    "optimist": "^0.6.1"
+  }
+}
