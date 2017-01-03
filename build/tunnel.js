@@ -48,10 +48,10 @@
       }
     });
     target.on('close', function() {
-      return console.log("ouput close");
+      return console.log("output close");
     });
     return target.on('error', function(error) {
-      console.log("ouput error: " + error.message);
+      console.log("output error: " + error.message);
       if ((s != null) && !s.destroyed) {
         s.destroy();
       }

@@ -63,10 +63,10 @@ server = Net.createServer {allowHalfOpen : yes, pauseOnConnect: yes}, (s) ->
         target.destroy() if target? and not target.destroyed
     
     target.on 'close', ->
-        console.log "ouput close"
+        console.log "output close"
 
     target.on 'error', (error) ->
-        console.log "ouput error: #{error.message}"
+        console.log "output error: #{error.message}"
         s.destroy() if s? and not s.destroyed
         target.destroy() if target? and not target.destroyed
 
