@@ -1,6 +1,6 @@
 {
   "name": "jtunnel",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "socket tunnel",
   "main": "build/tunnel.js",
   "scripts": {
