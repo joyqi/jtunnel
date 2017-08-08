@@ -8,7 +8,7 @@
 
   Net = require('net');
 
-  argv = Opt.usage('Usage: $0 [ -l 80 ] [ -h 123.123.123.123:80 ] [ -c rc4 ]').boolean('d').boolean('c').alias('l', 'listen').alias('h', 'host').alias('r', 'crypto').alias('p', 'password').alias('d', 'dump').alias('c', 'client').string('l').string('h')["default"]('r', 'rc4')["default"]('c', false)["default"]('p', '123456').describe('l', 'host and port jtunnel listen on').describe('h', 'host and port of the backend host').describe('r', 'encryption method').describe('p', 'encryption cipher key').describe('d', 'dump all encryption method').describe('c', 'client mode').argv;
+  argv = Opt.usage('Usage: $0 [ -l 80 ] [ -h 123.123.123.123:80 ] [ -c rc4 ]').boolean('d').boolean('c').alias('l', 'listen').alias('h', 'host').alias('r', 'crypto').alias('p', 'password').alias('d', 'dump').alias('c', 'client').alias('i', 'iv').string('l').string('h')["default"]('r', 'rc4')["default"]('c', false)["default"]('p', '123456')["default"]('i', null).describe('l', 'host and port jtunnel listen on').describe('h', 'host and port of the backend host').describe('r', 'encryption method').describe('p', 'encryption cipher key').describe('d', 'dump all encryption method').describe('c', 'client mode').describe('i', 'initialization vector').argv;
 
   if (argv.d) {
     ciphers = Crypto.getCiphers();
@@ -28,8 +28,13 @@
   }, function(s) {
     var cipher, decipher, target;
     console.log("input connect: " + s.remoteAddress + "@" + s.remotePort);
-    cipher = Crypto.createCipher(argv.crypto, argv.password);
-    decipher = Crypto.createDecipher(argv.crypto, argv.password);
+    if (argv.iv != null) {
+      cipher = Crypto.createCipheriv(argv.crypto, argv.password, argv.iv);
+      decipher = Crypto.createDecipheriv(argv.crypto, argv.password, argv.iv);
+    } else {
+      cipher = Crypto.createCipher(argv.crypto, argv.password);
+      decipher = Crypto.createDecipher(argv.crypto, argv.password);
+    }
     target = Net.connect(host[1], host[0], function() {
       console.log("output connect: " + target.localAddress + "@" + target.localPort);
       s.pipe(argv.client ? cipher : decipher).pipe(target).pipe(argv.client ? decipher : cipher).pipe(s);

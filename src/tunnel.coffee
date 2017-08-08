@@ -13,17 +13,20 @@ argv = Opt
     .alias 'p', 'password'
     .alias 'd', 'dump'
     .alias 'c', 'client'
+    .alias 'i', 'iv'
     .string 'l'
     .string 'h'
     .default 'r', 'rc4'
     .default 'c', false
     .default 'p', '123456'
+    .default 'i', null
     .describe 'l', 'host and port jtunnel listen on'
     .describe 'h', 'host and port of the backend host'
     .describe 'r', 'encryption method'
     .describe 'p', 'encryption cipher key'
     .describe 'd', 'dump all encryption method'
     .describe 'c', 'client mode'
+    .describe 'i', 'initialization vector'
     .argv
 
 if argv.d
@@ -41,8 +44,12 @@ host = if 0 <= argv.host.indexOf ':' then argv.host.split ':' else [null, argv.h
 server = Net.createServer {allowHalfOpen : yes, pauseOnConnect: yes}, (s) ->
     console.log "input connect: #{s.remoteAddress}@#{s.remotePort}"
 
-    cipher = Crypto.createCipher argv.crypto, argv.password
-    decipher = Crypto.createDecipher argv.crypto, argv.password
+    if argv.iv?
+        cipher = Crypto.createCipheriv argv.crypto, argv.password, argv.iv
+        decipher = Crypto.createDecipheriv argv.crypto, argv.password, argv.iv
+    else
+        cipher = Crypto.createCipher argv.crypto, argv.password
+        decipher = Crypto.createDecipher argv.crypto, argv.password
      
     target = Net.connect host[1], host[0], ->
         console.log "output connect: #{target.localAddress}@#{target.localPort}"
