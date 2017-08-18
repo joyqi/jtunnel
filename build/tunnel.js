@@ -8,7 +8,7 @@
 
   Net = require('net');
 
-  argv = Opt.usage('Usage: $0 [ -l 80 ] [ -h 123.123.123.123:80 ] [ -c rc4 ]').boolean('d').boolean('c').alias('l', 'listen').alias('h', 'host').alias('r', 'crypto').alias('p', 'password').alias('d', 'dump').alias('c', 'client').alias('i', 'iv').string('l').string('h')["default"]('r', 'rc4')["default"]('c', false)["default"]('p', '123456')["default"]('i', null).describe('l', 'host and port jtunnel listen on').describe('h', 'host and port of the backend host').describe('r', 'encryption method').describe('p', 'encryption cipher key').describe('d', 'dump all encryption method').describe('c', 'client mode').describe('i', 'initialization vector').argv;
+  argv = Opt.usage('Usage: $0 [ -l 80 ] [ -h 123.123.123.123:80 ] [ -c rc4 ]').boolean('d').boolean('c').alias('l', 'listen').alias('h', 'host').alias('r', 'crypto').alias('p', 'password').alias('d', 'dump').alias('c', 'client').alias('i', 'iv').string('l').string('h').string('p')["default"]('r', 'rc4')["default"]('c', false)["default"]('p', '123456')["default"]('i', null).describe('l', 'host and port jtunnel listen on').describe('h', 'host and port of the backend host').describe('r', 'encryption method').describe('p', 'encryption cipher key').describe('d', 'dump all encryption method').describe('c', 'client mode').describe('i', 'initialization vector').argv;
 
   if (argv.d) {
     ciphers = Crypto.getCiphers();

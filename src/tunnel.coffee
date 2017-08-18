@@ -16,6 +16,7 @@ argv = Opt
     .alias 'i', 'iv'
     .string 'l'
     .string 'h'
+    .string 'p'
     .default 'r', 'rc4'
     .default 'c', false
     .default 'p', '123456'
